@@ -173,10 +173,16 @@ var DateVal = {
                 var month = values.month;
                 if(month>12){
                     return FieldVal.create_error(DateVal.errors.invalid_date, flags);
+                } else if(month<1){
+                    return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                 }
 
                 if(values.day){
                     var day = values.day;
+
+                    if(day<1){
+                        return FieldVal.create_error(DateVal.errors.invalid_date, flags);
+                    }
 
                     if(values.year){
                         var year = values.year;
@@ -211,6 +217,8 @@ var DateVal = {
                 //Don't have month, but days shouldn't be greater than 31 anyway
                 if(values.day){
                     if(values.day>31){
+                        return FieldVal.create_error(DateVal.errors.invalid_date, flags);
+                    } else if(day<1){
                         return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                     }
                 }
