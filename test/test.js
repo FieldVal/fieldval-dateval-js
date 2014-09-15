@@ -55,7 +55,7 @@ describe('DateVal', function() {
 
             var as_string = DateVal.date_with_format_array(test_date, format_array);
 
-            assert.equal("2014-08-10 15:05:38", as_string);
+            assert.equal("2014-09-10 15:05:38", as_string);
 
             assert.equal(null, my_validator.end());
         })
