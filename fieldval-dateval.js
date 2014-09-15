@@ -79,7 +79,7 @@ var DateVal = {
                 if(component==='yyyy' || component==='yy'){
                     value_in_date = date.getUTCFullYear();
                 } else if(component==='MM' || component==='M'){
-                    value_in_date = date.getUTCMonth();
+                    value_in_date = date.getUTCMonth()+1;
                 } else if(component==='dd' || component==='d'){
                     value_in_date = date.getUTCDate();
                 } else if(component==='hh' || component==='h'){
