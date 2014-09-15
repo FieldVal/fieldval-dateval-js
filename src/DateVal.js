@@ -11,19 +11,19 @@ var DateVal = {
             return {
                 error: 111,
                 error_message: "Invalid date format."
-            }
+            };
         },
         invalid_date: function() {
             return {
                 error: 112,
                 error_message: "Invalid date."
-            }
+            };
         },
         invalid_date_format_string: function(){
             return {
                 error: 114,
                 error_message: "Invalid date format string."
-            }
+            };
         }
     },
 	date_format: function(flags){
@@ -55,14 +55,61 @@ var DateVal = {
             } else {
                 emit(format_array);
             }
-        }
+        };
         if(flags){
             flags.check = check;
-            return flags
+            return flags;
         }
         return {
             check: check
+        };
+    },
+    date_with_format_array: function(date, format_array){
+        //Takes a Javascript Date object
+
+        var date_string = "";
+
+        for(var i = 0; i < format_array.length; i++){
+            var component = format_array[i];
+            var component_value = DateVal.date_components[component];
+            if(component_value===0){
+                date_string+=component;
+            } else {
+                var value_in_date;
+                if(component==='yyyy' || component==='yy'){
+                    value_in_date = date.getUTCFullYear();
+                } else if(component==='MM' || component==='M'){
+                    value_in_date = date.getUTCMonth();
+                } else if(component==='dd' || component==='d'){
+                    value_in_date = date.getUTCDate();
+                } else if(component==='hh' || component==='h'){
+                    value_in_date = date.getUTCHours();
+                } else if(component==='mm' || component==='m'){
+                    value_in_date = date.getUTCMinutes();
+                } else if(component==='ss' || component==='s'){
+                    value_in_date = date.getUTCSeconds();
+                }
+
+                date_string += DateVal.pad_to_valid(value_in_date.toString(), component_value);
+            }
         }
+
+        return date_string;
+    },
+    pad_to_valid: function(value, allowed){
+        var appended = false;
+        for(var k = 0; k < allowed.length; k++){
+            var allowed_length = allowed[k];
+
+            if(value.length <= allowed_length){
+                var diff = allowed_length - value.length;
+                for(var m = 0; m < diff; m++){
+                    value = "0"+value;
+                }
+                return value;
+            }
+        }
+        return value;
     },
 	date: function(format, flags){
 
@@ -72,7 +119,7 @@ var DateVal = {
 
         var format_error = DateVal.date_format().check(format, function(emit_format_array){
             format_array = emit_format_array;
-        })
+        });
         
         if(format_error){
             if(console.error){
@@ -141,17 +188,17 @@ var DateVal = {
                 value_array.push(numeric_string);
 
                 if(current_component==='yyyy' || current_component==='yy'){
-                    values['year'] = int_val;
+                    values.year = int_val;
                 } else if(current_component==='MM' || current_component==='M'){
-                    values['month'] = int_val;
+                    values.month = int_val;
                 } else if(current_component==='dd' || current_component==='d'){
-                    values['day'] = int_val;
+                    values.day = int_val;
                 } else if(current_component==='hh' || current_component==='h'){
-                    values['hour'] = int_val;
+                    values.hour = int_val;
                 } else if(current_component==='mm' || current_component==='m'){
-                    values['minute'] = int_val;
+                    values.minute = int_val;
                 } else if(current_component==='ss' || current_component==='s'){
-                    values['second'] = int_val;
+                    values.second = int_val;
                 }
             }
 
@@ -187,7 +234,7 @@ var DateVal = {
                     if(values.year){
                         var year = values.year;
                         if(month==2){
-                            if(year%400==0 || (year%100!=0 && year%4==0)){
+                            if(year%400===0 || (year%100!==0 && year%4===0)){
                                 if(day>29){
                                     return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                                 }
@@ -200,15 +247,15 @@ var DateVal = {
                     }
     
                     if(month===4 || month===6 || month===9 || month===11){
-                        if(day>30){
+                        if(day > 30){
                             return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                         }
                     } else if(month===2){
-                        if(day>29){
+                        if(day > 29){
                             return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                         }
                     } else {
-                        if(day>31){
+                        if(day > 31){
                             return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                         }
                     }
@@ -216,9 +263,9 @@ var DateVal = {
             } else {
                 //Don't have month, but days shouldn't be greater than 31 anyway
                 if(values.day){
-                    if(values.day>31){
+                    if(values.day > 31){
                         return FieldVal.create_error(DateVal.errors.invalid_date, flags);
-                    } else if(day<1){
+                    } else if(values.day < 1){
                         return FieldVal.create_error(DateVal.errors.invalid_date, flags);
                     }
                 }
@@ -258,17 +305,16 @@ var DateVal = {
 
             //SUCCESS
             return;
-
-        }
+        };
         if(flags){
             flags.check = check;
-            return flags
+            return flags;
         }
         return {
             check: check
-        }
+        };
     }
-}
+};
 
 //Constants used for emit settings
 DateVal.EMIT_COMPONENT_ARRAY = {};
@@ -292,7 +338,7 @@ DateVal.date_components = {
     "-": 0,
     "/": 0,
     ":": 0
-}
+};
 
 if (typeof module != 'undefined') {
     module.exports = DateVal;
