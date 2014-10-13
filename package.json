@@ -1,6 +1,6 @@
 {
     "name": "fieldval-dateval",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "fieldval-dateval",
     "main": "fieldval-dateval.js",
     "scripts": {
@@ -11,14 +11,13 @@
         "url": "https://github.com/FieldVal/fieldval-dateval-js.git"
     },
     "dependencies": {
-        "tracer": "*"
+        "fieldval": "^0.1.0",
+        "fieldval-basicval": "^0.1.0"
     },
     "devDependencies": {
-        "fieldval": "FieldVal/fieldval-js",
-        "fieldval-basicval": "FieldVal/fieldval-basicval-js",
+        "mocha": "*",
         "gulp": "^3.6.1",
         "gulp-concat": "^2.2.0",
-        "gulp-imports": "MarcusLongmuir/gulp-imports",
         "gulp-istanbul": "^0.2.2",
         "gulp-jshint": "^1.8.4",
         "gulp-mocha": "^1.0.0",

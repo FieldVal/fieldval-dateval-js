@@ -1,6 +1,4 @@
-var logger;
 if((typeof require) === 'function'){
-    logger = require('tracer').console();
     FieldVal = require("fieldval");
     BasicVal = require("fieldval-basicval");
 }
@@ -76,8 +74,10 @@ var DateVal = {
                 date_string+=component;
             } else {
                 var value_in_date;
-                if(component==='yyyy' || component==='yy'){
+                if(component==='yyyy'){
                     value_in_date = date.getUTCFullYear();
+                } else if(component==='yy'){
+                    value_in_date = date.getUTCFullYear().toString().substring(2);
                 } else if(component==='MM' || component==='M'){
                     value_in_date = date.getUTCMonth()+1;
                 } else if(component==='dd' || component==='d'){

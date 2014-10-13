@@ -1,4 +1,3 @@
-var logger = require("tracer").console();
 var FieldVal = require('fieldval');
 var bval = require('fieldval-basicval');
 var DateVal = require("../src/DateVal");
@@ -55,7 +54,7 @@ describe('DateVal', function() {
 
             var as_string = DateVal.date_with_format_array(test_date, format_array);
 
-            assert.equal("2014-09-10 15:05:38", as_string);
+            assert.equal("2014-09-10 16:05:38", as_string);
 
             assert.equal(null, my_validator.end());
         })
