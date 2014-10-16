@@ -1,19 +1,19 @@
 {
-  "name": "fieldval-dateval",
-  "version": "0.1.0",
-  "main": "fieldval-dateval.js",
-  "ignore": [
-    "coverage",
-    "docs",
-    "docs_src",
-    "examples",
-    "node_modules",
-    "src",
-    "test",
-    ".gitignore",
-    ".travis.yml",
-    "gulpfile.js",
-    "link.sh",
-    ".gitignore"
-  ]
+	"name": "fieldval-dateval",
+	"version": "0.1.1",
+	"main": "fieldval-dateval.js",
+	"ignore": [
+		"coverage",
+		"docs",
+		"docs_src",
+		"examples",
+		"node_modules",
+		"src",
+		"gulpfile.js",
+		".gitignore",
+		"test",
+		".travis.yml",
+		"link.sh",
+		".gitignore"
+	]
 }
