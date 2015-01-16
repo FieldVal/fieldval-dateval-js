@@ -97,7 +97,11 @@ var DateVal = {
         return date_string;
     },
     pad_to_valid: function(value, allowed){
-        var appended = false;
+        var error = BasicVal.integer({parse:true}).check(value);
+        if (error) {
+            return value;
+        }
+        
         for(var k = 0; k < allowed.length; k++){
             var allowed_length = allowed[k];
 

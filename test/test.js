@@ -59,4 +59,22 @@ describe('DateVal', function() {
             assert.equal(null, my_validator.end());
         })
     })
+
+    describe('pad_to_valid()', function() {
+        it('should add padding to a valid natural number', function() {
+            assert.equal("0031", DateVal.pad_to_valid("31", [4]));
+        })
+
+        it('should not add padding to a negative number', function() {
+            assert.equal("-31", DateVal.pad_to_valid("-31", [4]));
+        })
+
+        it('should not add padding to a number with a decimal fraction', function() {
+            assert.equal("0.3", DateVal.pad_to_valid("0.3", [4]));
+        })
+
+        it('should not add padding to a number in scientific notation', function() {
+            assert.equal("1e2", DateVal.pad_to_valid("1e2", [4]));
+        })
+    })
 })
