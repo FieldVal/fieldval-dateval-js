@@ -50,7 +50,7 @@ describe('DateVal', function() {
 
             var format_array = my_validator.get("my_format", bval.string(true), DateVal.date_format());
 
-            var test_date = new Date('Wed Sep 10 2014 16:05:38 GMT+0100 (BST)');
+            var test_date = new Date(Date.UTC(2014, 08, 10, 16, 05, 38));//'Wed Sep 10 2014 16:05:38 GMT+0100 (BST)');
 
             var as_string = DateVal.date_with_format_array(test_date, format_array);
 
