@@ -50,13 +50,31 @@ describe('DateVal', function() {
 
             var format_array = my_validator.get("my_format", bval.string(true), DateVal.date_format());
 
-            var test_date = new Date('Wed Sep 10 2014 16:05:38 GMT+0100 (BST)');
+            var test_date = new Date(Date.UTC(2014, 08, 10, 16, 05, 38));//'Wed Sep 10 2014 16:05:38 GMT+0100 (BST)');
 
             var as_string = DateVal.date_with_format_array(test_date, format_array);
 
             assert.equal("2014-09-10 16:05:38", as_string);
 
             assert.equal(null, my_validator.end());
+        })
+    })
+
+    describe('pad_to_valid()', function() {
+        it('should add padding to a valid natural number', function() {
+            assert.equal("0031", DateVal.pad_to_valid("31", [4]));
+        })
+
+        it('should not add padding to a negative number', function() {
+            assert.equal("-31", DateVal.pad_to_valid("-31", [4]));
+        })
+
+        it('should not add padding to a number with a decimal fraction', function() {
+            assert.equal("0.3", DateVal.pad_to_valid("0.3", [4]));
+        })
+
+        it('should not add padding to a number in scientific notation', function() {
+            assert.equal("1e2", DateVal.pad_to_valid("1e2", [4]));
         })
     })
 })
