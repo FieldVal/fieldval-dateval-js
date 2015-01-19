@@ -1,6 +1,6 @@
 {
     "name": "fieldval-dateval",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "fieldval-dateval",
     "main": "fieldval-dateval.js",
     "scripts": {

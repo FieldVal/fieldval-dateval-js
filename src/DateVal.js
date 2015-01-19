@@ -212,7 +212,7 @@ var DateVal = (function(){
                     }
                 }
 
-                if(error){
+                if(error || component_index<format_array.length-1){
                     return FieldVal.create_error(DateVal.errors.invalid_date_format, flags);
                 }
 

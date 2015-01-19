@@ -5,7 +5,7 @@ var assert = require("assert")
 
 describe('DateVal', function() {
     describe('date()', function() {
-        it('should return a date string when an string of valid syntax is present', function() {
+        it('should return a date string when a string of valid syntax is present', function() {
             var my_validator = new FieldVal({
                 "my_date_1": "04/07/2014",
                 "my_date_2": "1/2/34",
@@ -28,6 +28,72 @@ describe('DateVal', function() {
             assert.equal("29/02/04", my_validator.get("my_date_8", bval.string(true), DateVal.date("dd/MM/yyyy")));
             assert.equal("29/05/2014 15:45:12", my_validator.get("my_date_9", bval.string(true), DateVal.date("dd/MM/yyyy hh:mm:ss")));
             assert.equal(null, my_validator.end());
+        }) 
+
+        it('should return errors when strings of invalid syntax are present', function() {
+            var my_validator = new FieldVal({
+                "my_date_1": "04/",
+                "my_date_2": "1/2/",
+                "my_date_3": "1-",
+                "my_date_4": "29::",
+                "my_date_5": "2014  ",
+                "my_date_6": "07",
+                "my_date_7": "a",
+                "my_date_8": "()",
+                "my_date_9": "-:/ "
+            })
+
+            assert.equal(undefined, my_validator.get("my_date_1", bval.string(true), DateVal.date("dd/MM/yyyy")));
+            assert.equal(undefined, my_validator.get("my_date_2", bval.string(true), DateVal.date("d/M/yy")));
+            assert.equal(undefined, my_validator.get("my_date_3", bval.string(true), DateVal.date("d-M-yy")));
+            assert.equal(undefined, my_validator.get("my_date_4", bval.string(true), DateVal.date("d:M")));
+            assert.equal(undefined, my_validator.get("my_date_5", bval.string(true), DateVal.date("yyyy MM dd")));
+            assert.equal(undefined, my_validator.get("my_date_6", bval.string(true), DateVal.date("MM/dd/yy")));
+            assert.equal(undefined, my_validator.get("my_date_7", bval.string(true), DateVal.date("dd/MM/yy")));
+            assert.equal(undefined, my_validator.get("my_date_8", bval.string(true), DateVal.date("dd/MM/yyyy")));
+            assert.equal(undefined, my_validator.get("my_date_9", bval.string(true), DateVal.date("dd/MM/yyyy hh:mm:ss")));
+            assert.deepEqual({
+                "invalid": {
+                    "my_date_1": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_2": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_3": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_4": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_5": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_6": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_7": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_8": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    },
+                    "my_date_9": {
+                        "error": 111,
+                        "error_message": "Invalid date format."
+                    }
+                },
+                "error_message": "One or more errors.",
+                "error": 0
+            }, my_validator.end());
         }) 
     })
 
